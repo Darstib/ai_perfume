@@ -178,7 +178,7 @@ body {
     border-width: 0px;
     position: absolute;
     left: 136px;
-    top: 787px;
+    top: 650px;
     width: 699px;
     height: 130px;
     display: flex;
@@ -217,7 +217,7 @@ body {
     font-family: 'Freestyle Script Bold', 'Freestyle Script Normal', 'Freestyle Script', sans-serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 253px;
+    font-size: 200px;
     letter-spacing: 3.2px;
     text-align: center;
     line-height: 90px;
@@ -270,7 +270,7 @@ body {
     border-width: 0px;
     position: absolute;
     left: 208px;
-    top: 827px;
+    top: 685px;
     width: 556px;
     height: 73px;
     display: flex;

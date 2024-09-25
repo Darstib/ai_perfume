@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no, viewport-fit=cover">
+
     <title>Fragrance Forge</title>
     <link rel="shortcut icon" href="https://files.axshare.com/gsr/3744/images/favicon_play.ico">
     <style>
@@ -19,18 +20,25 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            /* overflow: auto; */
-            -webkit-overflow-scrolling: touch;
+            border: none;
+            /* overflow: hidden; */
+            /* -webkit-overflow-scrolling: touch; */
         }
 
         #mainFrame {
             width: 100%;
             height: 100%;
-            border: none;
         }
 
         a {
             text-decoration: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            #clipFrameScroll {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
         }
     </style>
 </head>
@@ -40,11 +48,11 @@
         <iframe id="mainFrame" name="mainFrame" src="./index_files/saved_resource.html"></iframe>
     </div>
 
-    <script src="./index_files/jquery-3.2.1.min.js"></script>
-    <script src="./index_files/axutils.js"></script>
-    <script src="./index_files/messagecenter.js"></script>
     <script src="./index_files/axplayer.js"></script>
+    <script src="./index_files/axutils.js"></script>
     <script src="./index_files/init.js"></script>
+    <script src="./index_files/jquery-3.2.1.min.js"></script>
+    <script src="./index_files/messagecenter.js"></script>
 </body>
 
 </html>

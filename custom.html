@@ -1,0 +1,721 @@
+<html>
+
+<head>
+    <base href="https://aiperfumecreator.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI香水定制</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-image: url('https://raw.githubusercontent.com/Darstib/image_hosting/main/img/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        r body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: -1;
+        }
+
+        .navbar,
+        .sidebar,
+        .content-area,
+        .input-area {
+            background-color: rgba(248, 248, 248, 0.7);
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #00008B, #8A2BE2);
+            color: white;
+        }
+
+        .nav-links a,
+        .logo {
+            color: white;
+        }
+
+        .sidebar {
+            top: 60px;
+            bottom: 0;
+            height: auto;
+            background-color: transparent;
+        }
+
+        .content-area {
+            background-color: transparent;
+        }
+
+        .input-area {
+            background-color: rgba(248, 248, 248, 0.7);
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .container h3 {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .star-btn,
+        .cart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .star-btn svg,
+        .cart-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .star-btn:hover::after,
+        .cart-btn:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            bottom: 0;
+            width: 250px;
+            background-color: transparent;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+            z-index: 900;
+        }
+
+        .sidebar.closed {
+            transform: translateX(-250px);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            left: 250px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #f0f0f0;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .sidebar-toggle.closed {
+            left: 0;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .search-container input {
+            width: 60%;
+        }
+
+        .select-all-btn {
+            padding: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .show-all-btn {
+            display: block;
+            margin: 10px auto 0;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .sidebar select,
+        .bookmark-list {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .bookmark-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .bookmark-list li {
+            margin-bottom: 5px;
+        }
+
+        .sub-options {
+            display: none;
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .bookmark-list li:hover .sub-options {
+            display: block;
+        }
+
+        .sub-container {
+            max-height: none;
+            overflow: visible;
+        }
+
+        .content-area {
+            margin-left: 270px;
+            margin-top: 60px;
+            margin-bottom: 0;
+            padding: 20px;
+            height: calc(100% - 60px);
+            overflow-y: auto;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .content-area.sidebar-closed {
+            margin-left: 0;
+        }
+
+        .user-input-display {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .selected-options {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .selected-options th,
+        .selected-options td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .selected-options th {
+            background-color: #f2f2f2;
+            width: 100px;
+        }
+
+        .ai-output {
+            background-color: #e6f7ff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .content-area {
+                margin-left: 0;
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+        }
+
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            background-color: rgba(248, 248, 248, 0.7);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease-in-out;
+        }
+
+        .input-area.sidebar-open {
+            left: 0;
+        }
+
+        .input-box {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .send-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background-color: #45a049;
+        }
+
+        .content-area {
+            margin-bottom: 0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/custom">AI定制</a>
+            <a href="/popular">热门定制</a>
+            <a href="/contact">联系我们</a>
+        </div>
+        <div class="logo">AI香水</div>
+        <div class="nav-right">
+            <button class="star-btn" data-tooltip="收藏">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
+                </svg>
+            </button>
+            <a href="/checkout" class="cart-btn" data-tooltip="前往付款">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <aside class="sidebar">
+        <div class="container">
+            <h3>使用场景</h3>
+            <div class="sub-container">
+                <div class="search-container">
+                    <input type="text" placeholder="搜索...">
+                    <button class="select-all-btn">全选</button>
+                </div>
+                <ul class="bookmark-list">
+                    <li>
+                        <input type="checkbox" id="dinner" checked>
+                        <label for="dinner">晚宴</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="dinner1"><label for="dinner1">浓香精20-30%</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="outdoor">
+                        <label for="outdoor">户外</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="outdoor1"><label for="outdoor1">淡香精15-20%</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="office">
+                        <label for="office">办公</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="office1"><label for="office1">淡香水5-15%*</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="very-light">
+                        <label for="very-light">极淡</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="very-light1"><label for="very-light1">古龙水2-5%</label></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <h3>前调</h3>
+            <div class="sub-container">
+                <div class="search-container">
+                    <input type="text" placeholder="搜索...">
+                    <button class="select-all-btn">全选</button>
+                </div>
+                <ul class="bookmark-list">
+                    <li>
+                        <input type="checkbox" id="fresh" checked>
+                        <label for="fresh">清新宜人</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="citrus"><label for="citrus">如柑橘、绿叶、黄瓜等香气</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="woody">
+                        <label for="woody">木质深沉</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="cedar"><label for="cedar">如雪松、檀香、橡木等木质香气</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="sweet">
+                        <label for="sweet">甜美诱人</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="fruitsweet"><label for="fruitsweet">如桃子、苹果、草莓等水果香气</label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="floral">
+                        <label for="floral">浓郁花香</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="rose"><label for="rose">如玫瑰、茉莉、百合等花香</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="spicy">
+                        <label for="spicy">辛辣提神</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="ginger"><label for="ginger">如生姜、胡椒、肉桂等辛辣香气</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="soft">
+                        <label for="soft">柔和舒缓</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="lilyvalley"><label for="lilyvalley">如铃兰、紫罗兰、百合等柔和香气</label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <h3>中调</h3>
+            <div class="sub-container">
+                <div class="search-container">
+                    <input type="text" placeholder="搜索...">
+                    <button class="select-all-btn">全选</button>
+                </div>
+                <ul class="bookmark-list">
+                    <li>
+                        <input type="checkbox" id="floralrich" checked>
+                        <label for="floralrich">花香浓郁</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="rose2"><label for="rose2">如玫瑰、茉莉、兰花、鸢尾等浓郁而复杂的花香</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="softfruit">
+                        <label for="softfruit">柔和果香</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="peach"><label for="peach">通常比前调更加柔和如桃子、杏、黑醋栗等果香</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="greenfresh" checked>
+                        <label for="greenfresh">绿叶清新</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="leaves"><label for="leaves">树叶</label></li>
+                            <li><input type="checkbox" id="tea-leaves"><label for="tea-leaves">茶叶</label></li>
+                            <li><input type="checkbox" id="grass"><label for="grass">青草</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="woodywarm">
+                        <label for="woodywarm">木质温暖</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="cedar2"><label
+                                    for="cedar2">木质香料如雪松、檀香、橡木等，为中调带来温暖和深邃的感觉</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="orientalmystery">
+                        <label for="orientalmystery">东方神秘</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="vanilla"><label for="vanilla">东方香料，如香草、树脂、琥珀、麝香等</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="softpowder">
+                        <label for="softpowder">柔和粉末</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="violet"><label for="violet">粉末状的柔和细腻的花香，如紫罗兰、鸢尾根等</label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <h3>后调</h3>
+            <div class="sub-container">
+                <div class="search-container">
+                    <input type="text" placeholder="搜索...">
+                    <button class="select-all-btn">全选</button>
+                </div>
+                <ul class="bookmark-list">
+                    <li>
+                        <input type="checkbox" id="warm" checked>
+                        <label for="warm">柔和温暖</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="vanilla2"><label for="vanilla2">温暖的香料，如香草、焦糖、可可等</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="deepwood">
+                        <label for="deepwood">深邃木质</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="sandalwood"><label for="sandalwood">木质香料如檀香、雪松、橡木等</label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="orientalmystical">
+                        <label for="orientalmystical">东方神秘</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="amber"><label for="amber">东方香料如琥珀、麝香、龙涎香等</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="comfortablepowder">
+                        <label for="comfortablepowder">舒适粉末</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="iris"><label for="iris">柔和舒缓粉末状的花香，如鸢尾、紫罗兰等</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="sweetresin">
+                        <label for="sweetresin">甜美树脂</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="balsam"><label
+                                    for="balsam">树脂类香料如安息香、乳香等，为香水后调带来一种甜美的温暖感</label></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="lastinganimal">
+                        <label for="lastinganimal">持久动物</label>
+                        <ul class="sub-options">
+                            <li><input type="checkbox" id="civet"><label for="civet">动物性香料如麝猫香、海狸香等提供独特的、持久的香气</label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <button class="sidebar-toggle">☰</button>
+
+    <main class="content-area">
+        <div class="user-input-display"></div>
+        <table class="selected-options">
+            <tr>
+                <th>使用场景</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>前调</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>中调</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>后调</th>
+                <td></td>
+            </tr>
+        </table>
+        <div class="ai-output"></div>
+    </main>
+
+    <div class="input-area">
+        <textarea class="input-box" placeholder="输入您的描述"></textarea>
+        <button class="send-btn">发送</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const starBtn = document.querySelector('.star-btn');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const contentArea = document.querySelector('.content-area');
+            const inputArea = document.querySelector('.input-area');
+            const inputBox = document.querySelector('.input-box');
+            const sendBtn = document.querySelector('.send-btn');
+            const selectAllBtns = document.querySelectorAll('.select-all-btn');
+            const bookmarkLists = document.querySelectorAll('.bookmark-list');
+            const userInputDisplay = document.querySelector('.user-input-display');
+            const selectedOptionsTable = document.querySelector('.selected-options');
+            const aiOutput = document.querySelector('.ai-output');
+
+            starBtn.addEventListener('click', () => {
+                starBtn.classList.toggle('active');
+                if (starBtn.classList.contains('active')) {
+                    starBtn.querySelector('svg').style.fill = 'gold';
+                } else {
+                    starBtn.querySelector('svg').style.fill = 'none';
+                }
+            });
+
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('closed');
+                sidebarToggle.classList.toggle('closed');
+                contentArea.classList.toggle('sidebar-closed');
+                inputArea.classList.toggle('sidebar-closed');
+            });
+
+            selectAllBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const container = e.target.closest('.container');
+                    const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+                    const allSelected = Array.from(checkboxes).every(opt => opt.checked);
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = !allSelected;
+                    });
+                    updateSelectedOptions();
+                });
+            });
+
+            bookmarkLists.forEach(list => {
+                const mainOptions = list.querySelectorAll('li > input[type="checkbox"]');
+                mainOptions.forEach(option => {
+                    option.addEventListener('change', (e) => {
+                        const subOptions = e.target.closest('li').querySelectorAll('.sub-options input[type="checkbox"]');
+                        subOptions.forEach(subOption => {
+                            subOption.checked = e.target.checked;
+                        });
+                        updateSelectedOptions();
+                    });
+                });
+            });
+
+            function getSelectedOptions() {
+                const containers = document.querySelectorAll('.container');
+                const selected = {
+                    '使用场景': [],
+                    '前调': [],
+                    '中调': [],
+                    '后调': []
+                };
+
+                containers.forEach(container => {
+                    const title = container.querySelector('h3').textContent;
+                    const checkedOptions = container.querySelectorAll('input[type="checkbox"]:checked');
+                    checkedOptions.forEach(option => {
+                        const label = option.nextElementSibling.textContent;
+                        const subOptions = Array.from(option.closest('li').querySelectorAll('.sub-options input[type="checkbox"]:checked'))
+                            .map(subOpt => subOpt.nextElementSibling.textContent);
+                        selected[title].push(`${label}${subOptions.length ? '#' + subOptions.join('#') : ''}`);
+                    });
+                });
+
+                return selected;
+            }
+
+            function updateSelectedOptions() {
+                const selected = getSelectedOptions();
+                Object.entries(selected).forEach(([key, value]) => {
+                    const row = Array.from(selectedOptionsTable.rows).find(row => row.cells[0].textContent === key);
+                    if (row) {
+                        row.cells[1].textContent = value.join(' ');
+                    }
+                });
+            }
+
+            sendBtn.addEventListener('click', () => {
+                const message = inputBox.value.trim();
+                if (message) {
+                    userInputDisplay.textContent = `用户描述：${message}`;
+                    aiOutput.textContent = 'AI 定制： 正在为您定制……';
+                    inputBox.value = '';
+                }
+            });
+
+            // Initial update
+            updateSelectedOptions();
+            userInputDisplay.textContent = '用户描述：我想要一款适合下面条件的香水；';
+            selectedOptionsTable.querySelector('tr:nth-child(1) td').textContent = '户外';
+            selectedOptionsTable.querySelector('tr:nth-child(2) td').textContent = '清新宜人#柑橘';
+            selectedOptionsTable.querySelector('tr:nth-child(3) td').textContent = '绿叶清新#茶叶 东方神秘#琥珀';
+            selectedOptionsTable.querySelector('tr:nth-child(4) td').textContent = '深邃木质#檀香';
+            aiOutput.textContent = 'AI 定制： 正在为您定制……';
+        });
+    </script>
+
+</body>
+
+</html>

@@ -11,11 +11,11 @@
 }
 
 #debugHostBtn a {
-    background: url('https://files.axshare.com/gsc/G5SIAA/a4/77/fa/a477fa0370544521b07416e2333e1569/plugins/debug/styles/images/console_panel_on.svg?pageId=8c4d862c-f53e-438a-a3ec-2e07fb609fd1') no-repeat center center, linear-gradient(transparent, transparent);
+    background: url('https://files.axshare.com/gsc/G5SIAA/90/ab/a1/90aba17389a44143b047dd566e32b9a1/plugins/debug/styles/images/console_panel_on.svg?pageId=8c4d862c-f53e-438a-a3ec-2e07fb609fd1') no-repeat center center, linear-gradient(transparent, transparent);
 }
 
 #debugHostBtn a.selected, #debugHostBtn a.selected:hover {
-    background: url('https://files.axshare.com/gsc/G5SIAA/a4/77/fa/a477fa0370544521b07416e2333e1569/plugins/debug/styles/images/console_panel_off.svg?pageId=8c4d862c-f53e-438a-a3ec-2e07fb609fd1') no-repeat center center, linear-gradient(transparent, transparent);
+    background: url('https://files.axshare.com/gsc/G5SIAA/90/ab/a1/90aba17389a44143b047dd566e32b9a1/plugins/debug/styles/images/console_panel_off.svg?pageId=8c4d862c-f53e-438a-a3ec-2e07fb609fd1') no-repeat center center, linear-gradient(transparent, transparent);
 }
 
 #debugToolbar {

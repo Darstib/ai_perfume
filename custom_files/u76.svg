@@ -1,18 +1,1 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="84px" height="63px" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter x="-143px" y="325px" width="84px" height="63px" filterUnits="userSpaceOnUse" id="filter62">
-      <feOffset dx="5" dy="5" in="SourceAlpha" result="shadowOffsetInner" />
-      <feGaussianBlur stdDeviation="5" in="shadowOffsetInner" result="shadowGaussian" />
-      <feComposite in2="shadowGaussian" operator="atop" in="SourceAlpha" result="shadowComposite" />
-      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.34901960784313724 0  " in="shadowComposite" />
-    </filter>
-    <g id="widget63">
-      <path d="M -138 330  L -74 330  L -74 373  L -138 373  L -138 330  Z " fill-rule="nonzero" fill="#ffffff" stroke="none" fill-opacity="0" />
-    </g>
-  </defs>
-  <g transform="matrix(1 0 0 1 143 -325 )">
-    <use xlink:href="#widget63" filter="url(#filter62)" />
-    <use xlink:href="#widget63" />
-  </g>
-</svg>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="84" height="63" xmlns="http://www.w3.org/2000/svg"><defs><filter x="-143" y="325" width="84" height="63" filterUnits="userSpaceOnUse" id="b"><feOffset dx="5" dy="5" in="SourceAlpha" result="shadowOffsetInner"/><feGaussianBlur stdDeviation="5" in="shadowOffsetInner" result="shadowGaussian"/><feComposite in2="shadowGaussian" operator="atop" in="SourceAlpha" result="shadowComposite"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.34901960784313724 0" in="shadowComposite"/></filter><path d="M-138 330h64v43h-64v-43z" fill="#fff" fill-opacity="0" id="a"/></defs><g transform="translate(143 -325)"><use xlink:href="#a" filter="url(#b)"/><use xlink:href="#a"/></g></svg>
